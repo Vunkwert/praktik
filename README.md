@@ -35,3 +35,54 @@
 
 ### 2. Результат обработки данных (`/form` - POST)
 ![Результат работы](images/result.png)
+
+
+# Лабораторная работа №2: Репозиторий в Spring Data JPA
+
+## Цель работы
+Изучить способы взаимодействия с реляционной базой данных при помощи Spring Data JPA и H2 Console, реализовав CRUD-операции (создание, чтение, редактирование, удаление) для сущности «Студент» (Вариант 3) с проверкой существования записей и стилизацией пользовательского интерфейса.
+
+## Архитектура проекта
+- **Стек:** Java 17, Spring Boot 3, Maven, Thymeleaf, Bootstrap 5[cite: 1, 2]
+- **СУБД:** H2 Database (in-memory)[cite: 1, 2]
+- **Основные слои:**
+    - **Entity (`Student`):** доменная модель данных с полями по варианту №3 (ФИО, пол, национальность, рост, вес, дата рождения, телефон, ВУЗ, курс, группа, средний балл, специальность)[cite: 1].
+    - **Repository (`StudentRepository`):** слой доступа к данным на основе `JpaRepository`[cite: 1, 2].
+    - **Controller (`StudentController`):** обработка HTTP-запросов (endpoints), управление навигацией и валидацией существования объектов[cite: 1, 2].
+    - **View (`templates`):** HTML-страницы с шаблонизатором Thymeleaf и Bootstrap-стилями[cite: 1].
+- **Ключевые аннотации:** `@Entity`, `@Table`, `@Id`, `@GeneratedValue`, `@Column`, `@Repository`, `@Controller`, `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@PathVariable`, `@ModelAttribute`, `@Autowired`[cite: 1, 2].
+
+## Алгоритм работы
+1. **Настройка зависимостей и конфигурации:**[cite: 1]
+    - В `pom.xml` добавлены стартеры `spring-boot-starter-data-jpa` и БД `h2`[cite: 1].
+    - В `application.properties` настроены параметры подключения к in-memory базе H2, активация отображения SQL-запросов в консоли, а также включение H2 Console (`/h2-console`)[cite: 1].
+2. **Создание сущности и репозитория:**[cite: 1]
+    - Сущность `Student` размечена JPA-аннотациями `@Entity`, `@Table`, `@Id` и `@GeneratedValue`[cite: 1].
+    - Создан интерфейс `StudentRepository`, наследующий `JpaRepository<Student, Long>`[cite: 1].
+3. **Инициализация данных:**[cite: 1]
+    - Создан файл `src/main/resources/data.sql` для первоначального заполнения базы данных тестовыми записями студентов[cite: 1].
+4. **Реализация веб-слоя (CRUD):**[cite: 1]
+    - Реализован `StudentController` со следующими эндпоинтами:[cite: 1]
+        - `GET /students` — вывод списка всех студентов[cite: 1].
+        - `GET /students/details/{id}` — просмотр подробной информации о студенте с проверкой через `findById()`[cite: 1].
+        - `GET /students/create` — отображение формы добавления студента[cite: 1].
+        - `GET /students/edit/{id}` — отображение формы редактирования с проверкой существования записи[cite: 1].
+        - `POST /students/save` — сохранение/обновление данных студента через `repository.save()`[cite: 1].
+        - `GET /students/delete/{id}` — удаление студента по ID с проверкой существования через `existsById()`[cite: 1].
+5. **Оформление интерфейса:**[cite: 1]
+    - Верстка страниц (`students-list.html`, `student-details.html`, `student-form.html`) выполнена с использованием Bootstrap 5 и синтаксиса Thymeleaf (`th:each`, `th:text`, `th:field`, `th:href` и др.)[cite: 1].
+
+## Скриншоты работы приложения
+
+
+1. **Главная страница со списком студентов (`/students`):**
+   ![Главная страница](images/list.png)
+
+2. **Детальная информация о студенте (`/students/details/1`):**
+   ![Детали](images/details.png)
+
+3. **Форма добавления/редактирования студента (`/students/create`):**
+   ![Форма](images/form.png)
+
+4. **Консоль H2 Database (`/h2-console`):**
+   ![H2 Console](images/h2.png)
