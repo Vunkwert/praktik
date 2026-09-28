@@ -1,18 +1,18 @@
 package ru.kafpin.praktik;
 
 public class Student {
-    private long id = 13; // Твой ID по умолчанию
-    private String name;      // Имя
-    private String surname;   // Фамилия
-    private String patronymic;// Отчество
-    private String email;     // Email
-    private int admissionYear = 2023; // Год поступления по умолчанию
+    private long id = 13; 
+    private String name;      
+    private String surname;   
+    private String patronymic;
+    private String email;     
+    private int admissionYear = 2023; 
 
-    // Конструктор без аргументов (обязательно для Spring POJO)
+    //конструктор без аргументов (для Spring POJO)
     public Student() {
     }
 
-    // Геттеры и сеттеры
+    //геттеры и сеттеры
     public long getId() {
         return id;
     }
@@ -61,15 +61,15 @@ public class Student {
         this.admissionYear = admissionYear;
     }
 
-    // Метод для автоматического формирования группы по условию: «ПИНз-1» + <последние две цифры года>
+    //метод для автоматического формирования группы по условию: «ПИН-1» + <последние две цифры года>
     public String getGroup() {
         String yearStr = String.valueOf(admissionYear);
         String shortYear = yearStr.length() >= 2 ? yearStr.substring(yearStr.length() - 2) : yearStr;
         return "ПИН-1" + shortYear;
     }
 
-    // Метод для автоматического формирования логина: “student” + <группа> + <id>
-    // Приводим к нижнему регистру для красоты: student-pin123-13
+    // метод для автоматического формирования логина: “student” + <группа> + <id>
+    //приводим к нижнему регистру для красоты
     public String getLogin() {
         return ("student-" + getGroup() + "-" + id).toLowerCase();
     }
