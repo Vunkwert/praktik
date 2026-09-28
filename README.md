@@ -86,3 +86,4 @@
 
 4. **Консоль H2 Database (`/h2-console`):**
    ![H2 Console](images/h2.png)
+
