@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MainController {
 
-    // Шаг для открытия формы (GET запрос)
+    //для открытия формы (GET запрос)
     @GetMapping("/form")
     public String mainForm(Model model) {
         model.addAttribute("student", new Student());
         return "main-form";
     }
 
-    // Шаг для обработки отправленных данных формы (POST запрос)
+    //для обработки отправленных данных формы (POST запрос)
     @PostMapping("/form")
     public String processForm(@ModelAttribute Student student, Model model) {
         model.addAttribute("student", student);
